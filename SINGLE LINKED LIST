@@ -16,6 +16,7 @@ public class SingleLinkedList {
 
     // INSERT AT BEGINNING
     public void insertAtBeg(int data) {
+        System.out.println("Inserting " + data + " at the beginning.");
         Node newNode = new Node(data);
         newNode.next = head;
         head = newNode;
@@ -24,6 +25,7 @@ public class SingleLinkedList {
 
     // INSERT AT END
     public void insertAtEnd(int data) {
+        System.out.println("Inserting " + data + " at the end.");
         Node newNode = new Node(data);
         if (head == null) {
             head = newNode;
@@ -39,6 +41,7 @@ public class SingleLinkedList {
 
     // INSERT AT SPECIFIC POSITION
     public void insertAtAnySpecificPosition(int data, int pos) {
+        System.out.println("Inserting " + data + " at position " + pos + ".");
         if (pos < 0 || pos > size) {
             System.out.println("INDEX OUT OF BOUNDS");
             return;
@@ -59,8 +62,66 @@ public class SingleLinkedList {
         size++;
     }
 
+    // DELETE FROM BEGINNING
+    public void deleteAtBeg() {
+        if (head == null) {
+            System.out.println("Cannot delete from beginning: List is empty.");
+            return;
+        }
+        System.out.println("Deleting node " + head.data + " from the beginning.");
+        head = head.next;
+        size--;
+    }
+
+    // DELETE FROM END
+    public void deleteAtEnd() {
+        if (head == null) {
+            System.out.println("Cannot delete from end: List is empty.");
+            return;
+        }
+        if (head.next == null) {
+            System.out.println("Deleting node " + head.data + " from the end.");
+            head = null;
+        } else {
+            Node temp = head;
+            while (temp.next.next != null) {
+                temp = temp.next;
+            }
+            System.out.println("Deleting node " + temp.next.data + " from the end.");
+            temp.next = null;
+        }
+        size--;
+    }
+
+    // DELETE FROM SPECIFIC POSITION
+    public void deleteAtAnySpecificPosition(int pos) {
+        if (pos < 0 || pos >= size) {
+            System.out.println("INDEX OUT OF BOUNDS");
+            return;
+        }
+
+        if (pos == 0) {
+            System.out.println("Deleting node " + head.data + " from position " + pos + ".");
+            head = head.next;
+        } else {
+            Node current = head;
+            for (int i = 0; i < pos - 1; i++) {
+                current = current.next;
+            }
+            System.out.println("Deleting node " + current.next.data + " from position " + pos + ".");
+            current.next = current.next.next;
+        }
+        size--;
+    }
+
     // DISPLAY METHOD
     public void display() {
+        System.out.print("Current List: ");
+        if (head == null) {
+            System.out.println("List is empty.");
+            return;
+        }
+
         Node temp = head;
         while (temp != null) {
             System.out.print(temp.data + " -> ");
@@ -72,18 +133,23 @@ public class SingleLinkedList {
     // MAIN METHOD
     public static void main(String[] args) {
         SingleLinkedList list = new SingleLinkedList();
+
         list.insertAtBeg(10);
         list.insertAtBeg(20);
         list.insertAtBeg(30);
-        list.insertAtBeg(40);
-        list.insertAtBeg(50);
-        list.insertAtBeg(60);
-        list.insertAtBeg(70);
-        list.insertAtEnd(65);
-        list.insertAtEnd(55);
-        list.insertAtBeg(80);
-        list.insertAtEnd(85);
+        list.insertAtEnd(40);
+        list.insertAtEnd(50);
         list.insertAtAnySpecificPosition(35, 2);
+
+        list.display();
+
+        list.deleteAtBeg();
+        list.display();
+
+        list.deleteAtEnd();
+        list.display();
+
+        list.deleteAtAnySpecificPosition(2);
         list.display();
     }
 }
