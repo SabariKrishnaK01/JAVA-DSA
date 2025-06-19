@@ -1,0 +1,89 @@
+// SINGLE LINKED LIST
+class Node {
+    int data;
+    Node next;
+
+    // Constructor
+    Node(int data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+public class SingleLinkedList {
+    private int size = 0;
+    Node head = null;
+
+    // INSERT AT BEGINNING
+    public void insertAtBeg(int data) {
+        Node newNode = new Node(data);
+        newNode.next = head;
+        head = newNode;
+        size++;
+    }
+
+    // INSERT AT END
+    public void insertAtEnd(int data) {
+        Node newNode = new Node(data);
+        if (head == null) {
+            head = newNode;
+        } else {
+            Node temp = head;
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newNode;
+        }
+        size++;
+    }
+
+    // INSERT AT SPECIFIC POSITION
+    public void insertAtAnySpecificPosition(int data, int pos) {
+        if (pos < 0 || pos > size) {
+            System.out.println("INDEX OUT OF BOUNDS");
+            return;
+        }
+
+        Node newNode = new Node(data);
+        if (pos == 0) {
+            newNode.next = head;
+            head = newNode;
+        } else {
+            Node current = head;
+            for (int i = 0; i < pos - 1; i++) {
+                current = current.next;
+            }
+            newNode.next = current.next;
+            current.next = newNode;
+        }
+        size++;
+    }
+
+    // DISPLAY METHOD
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.data + " -> ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    // MAIN METHOD
+    public static void main(String[] args) {
+        SingleLinkedList list = new SingleLinkedList();
+        list.insertAtBeg(10);
+        list.insertAtBeg(20);
+        list.insertAtBeg(30);
+        list.insertAtBeg(40);
+        list.insertAtBeg(50);
+        list.insertAtBeg(60);
+        list.insertAtBeg(70);
+        list.insertAtEnd(65);
+        list.insertAtEnd(55);
+        list.insertAtBeg(80);
+        list.insertAtEnd(85);
+        list.insertAtAnySpecificPosition(35, 2);
+        list.display();
+    }
+}
